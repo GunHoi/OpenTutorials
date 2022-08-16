@@ -93,10 +93,21 @@ function App() {
       }
     }
     content = <Article title={title} body={body}/> 
-    contextControl = <li><a href={"/update"+id} onClick={event=>{
+    contextControl = <><li><a href={"/update"+id} onClick={event=>{
       event.preventDefault();
-      setMode('UPDATE');
-    }}>Update</a></li>  //read 모드 일 때만 Update 표시됨.
+      setMode('UPDATE');  //read 모드 일 때만 Update 표시됨.
+    }}>Update</a></li>
+    <li><input type="button" value="Delete" onClick={()=>{
+      const newTopics =[]
+      for(let i=0; i<topics.length;i++){
+        if(topics[i].id !== id){
+          newTopics.push(topics[i]);
+        }
+      }
+      setTopics(newTopics);
+      setMode('WELCOME');
+    }}/></li>
+    </>
   } else if(mode ==='CREATE'){
     content = <CREATE onCreate={(_title, _body)=>{
       const newTopic = {id:nextId, title:_title, body:_body}
